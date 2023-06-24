@@ -123,7 +123,7 @@ class PasswordAdd extends Component {
               </div>
               <div className="inputEl-container">
                 <img
-                  src="https://assets.ccbp.in/frontend/react-js/password-manager-website-img.png"
+                  src="https://assets.ccbp.in/frontend/react-js/password-manager-password-img.png "
                   alt="password"
                 />
                 <input
@@ -152,7 +152,7 @@ class PasswordAdd extends Component {
 
               <div className="inputEl-container">
                 <img
-                  src="https://assets.ccbp.in/frontend/react-js/password-manager-website-img.png"
+                  src="https://assets.ccbp.in/frontend/react-js/password-manager-search-img.png "
                   alt="search"
                 />
                 <input
