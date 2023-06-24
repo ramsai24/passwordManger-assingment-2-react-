@@ -12,9 +12,11 @@ class PasswordAdd extends Component {
     staredPassword: '',
     passwordItemsList: [],
     checkStatus: false,
+    searchEl: '',
   }
 
-  add = () => {
+  add = event => {
+    event.preventDefault()
     const {websiteInput, usernameInput, passwordInput} = this.state
 
     this.setState(prev => ({
@@ -48,6 +50,27 @@ class PasswordAdd extends Component {
   checkedStatus = () =>
     this.setState(prev => ({checkStatus: !prev.checkStatus}))
 
+  deleteItemOnId = id => {
+    console.log(id)
+    const {passwordItemsList} = this.state
+
+    const updatedList = passwordItemsList.filter(each => id !== each.id)
+
+    this.setState({passwordItemsList: updatedList})
+  }
+
+  searchInput = event => {
+    // const {passwordItemsList} = this.state
+
+    // const searchreslut = event.target.value
+    this.setState({searchEl: event.target.value})
+
+    // const searchedList = passwordItemsList.filter(each =>
+    //   each.websiteInput.toLowerCase().includes(searchEl.toLowerCase()),
+    // )
+    // this.setState({passwordItemsList: searchedList})
+  }
+
   render() {
     const {
       websiteInput,
@@ -56,7 +79,12 @@ class PasswordAdd extends Component {
       passwordItemsList,
       staredPassword,
       checkStatus,
+      searchEl,
     } = this.state
+
+    const filteredList = passwordItemsList.filter(each =>
+      each.websiteInput.toLowerCase().includes(searchEl.toLowerCase()),
+    )
     console.log(checkStatus)
     console.log(passwordInput, staredPassword)
     return (
@@ -67,7 +95,7 @@ class PasswordAdd extends Component {
             alt="app logo"
           />
           <div className="top-section">
-            <div className="add-container">
+            <form className="add-container">
               <h1>Add New Password</h1>
               <div className="inputEl-container">
                 <img
@@ -105,10 +133,10 @@ class PasswordAdd extends Component {
                   placeholder="Enter Password"
                 />
               </div>
-              <button type="button" onClick={this.add}>
+              <button type="submit" onClick={this.add}>
                 Add
               </button>
-            </div>
+            </form>
             <img
               className="password-manager-img"
               src="https://assets.ccbp.in/frontend/react-js/password-manager-lg-img.png"
@@ -117,24 +145,49 @@ class PasswordAdd extends Component {
           </div>
           <div>
             <div className="your-password-container">
-              <h1>Your Passwords</h1>
+              <div>
+                <h1 id="listLength">Your Passwords</h1>
+                <p>{filteredList.length}</p>
+              </div>
+
               <div className="inputEl-container">
                 <img
                   src="https://assets.ccbp.in/frontend/react-js/password-manager-website-img.png"
-                  alt="password"
+                  alt="search"
                 />
-                <input type="search" placeholder="Search" />
+                <input
+                  type="search"
+                  placeholder="Search"
+                  onChange={this.searchInput}
+                />
               </div>
             </div>
-            <input type="checkbox" onChange={this.checkedStatus} />
+            <input
+              id="checkBox"
+              type="checkbox"
+              onChange={this.checkedStatus}
+            />
+            <label htmlFor="checkBox">Show Passwords</label>
             <ul>
-              {passwordItemsList.map(each => (
-                <PasswordItem
-                  passwordItem={each}
-                  key={each.id}
-                  status={checkStatus}
-                />
-              ))}
+              {filteredList.length === 0 ? (
+                <div>
+                  <img
+                    src="https://assets.ccbp.in/frontend/react-js/no-passwords-img.png"
+                    alt="no passwords"
+                    className="password-manager-img"
+                  />
+                  <p>No Passwords</p>
+                </div>
+              ) : (
+                filteredList.map(each => (
+                  <PasswordItem
+                    passwordItem={each}
+                    key={each.id}
+                    status={checkStatus}
+                    deleteListItem={this.deleteItemOnId}
+                  />
+                ))
+              )}
             </ul>
           </div>
         </div>

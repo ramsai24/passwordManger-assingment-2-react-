@@ -1,14 +1,18 @@
 import './index.css'
 
 const PasswordItem = props => {
-  const {passwordItem, status} = props
-  const {websiteInput, usernameInput, passwordInput} = passwordItem
+  const {passwordItem, status, deleteListItem} = props
+  const {id, websiteInput, usernameInput, passwordInput} = passwordItem
+
+  const deleteID = () => {
+    deleteListItem(id)
+  }
 
   return (
     <li>
-      <p>{websiteInput[0]}</p>
+      <p>{websiteInput[0].toUpperCase()}</p>
       <div>
-        <h1>{websiteInput}</h1>
+        <p>{websiteInput}</p>
         <p>{usernameInput}</p>
         <p>
           {status ? (
@@ -21,6 +25,12 @@ const PasswordItem = props => {
           )}
         </p>
       </div>
+      <button type="button" data-testid="delete" onClick={deleteID}>
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/password-manager-delete-img.png"
+          alt="delete"
+        />
+      </button>
     </li>
   )
 }
