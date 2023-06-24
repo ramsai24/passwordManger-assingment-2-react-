@@ -1,0 +1,16 @@
+.app-container {
+  padding: 30px;
+}
+
+.top-section {
+  display: flex;
+  border: 1px solid green;
+}
+.password-manager-img {
+  height: 400px;
+  width: 400px;
+}
+.your-password-container {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,5 +1,6 @@
+import PasswordAdd from './PasswordAdd'
 import './App.css'
 
-const App = () => <div>Hello World</div>
+const App = () => <PasswordAdd />
 
 export default App
